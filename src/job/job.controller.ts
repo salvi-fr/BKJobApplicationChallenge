@@ -77,6 +77,7 @@ export class JobController {
         @Query('perPage', new DefaultValuePipe(DEFAULT_PER_PAGE), ParseIntPipe)
         perPage: number
     ): Promise<IResponsePaging> {
+        console.log("I havee been here")
         const skip = await this.paginationService.skip(page, perPage);
         const jobs: JobDocument[] = await this.jobService.findAll<JobDocument>(
             {},

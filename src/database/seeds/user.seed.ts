@@ -22,12 +22,11 @@ export class UserSeed {
         autoExit: true
     })
     async create(): Promise<void> {
-        const instructor: RoleDocument = await this.roleService.findOne({name: 'instructor' });
         const admin: RoleDocument = await this.roleService.findOne( {name: 'admin'});
-        const student: RoleDocument = await this.roleService.findOne({name: 'student' });
-        const operator: RoleDocument = await this.roleService.findOne({ name: 'operator'});
+        const hr: RoleDocument = await this.roleService.findOne({name: 'hr' });
+        const normalUser: RoleDocument = await this.roleService.findOne({ name: 'user'});
 
-        if (!admin) {
+        if (!admin || !hr || !normalUser) {
             this.debuggerService.error('Go Insert Roles Before Insert User', {
                 class: 'UserSeed',
                 function: 'create'
@@ -49,76 +48,30 @@ export class UserSeed {
                 {
                     firstName: 'admin',
                     lastName: 'test',
-                    email: 'admin@healtheducat.rw',
+                    email: '123456@Bk',
                     password: '123456',
                     mobileNumber: '08111111111',
                     role: admin._id,
                     activated: true,
                 },
                 {
-                firstName: 'instructor',
+                firstName: 'hr',
                 lastName: 'test',
-                email: 'instructor@healtheducat.rw',
-                password: '123456',
+                email: 'hr@bk.rw',
+                password: '123456@Bk',
                 mobileNumber: '08111111112',
-                role: instructor._id,
+                role: hr._id,
                 activated: true
                 },
                 {
-                    firstName: 'Operator',
+                    firstName: 'user',
                     lastName: 'test',
-                    email: 'operator@healtheducat.rw',
-                    password: '123456',
+                    email: 'user@bk.rw',
+                    password: '123456@Bk',
                     mobileNumber: '08111111113',
-                    role: operator._id,
+                    role: normalUser._id,
                     activated: true
-                },
-                {
-                    firstName: 'student',
-                    lastName: 'test',
-                    email: 'student@healtheducat.rw',
-                    password: '123456',
-                    mobileNumber: '08111111114',
-                    role: student._id,
-                    activated: true
-                },
-                {
-                    firstName: 'Jema',
-                    lastName: 'Operator',
-                    email: 'Jemaoperator@healtheducat.rw',
-                    password: '123456',
-                    mobileNumber: '08111111115',
-                    role: operator._id,
-                    activated: true
-                },
-                {
-                    firstName: 'Emmanuella',
-                    lastName: 'Operator',
-                    email: 'emmanuellaoperator@healtheducat.rw',
-                    password: '123456',
-                    mobileNumber: '08111111116',
-                    role: operator._id,
-                    activated: true
-                },
-                {
-                    firstName: 'Ngamba',
-                    lastName: 'Operator',
-                    email: 'Ngambaoperator@healtheducat.rw',
-                    password: '123456',
-                    mobileNumber: '08111111117',
-                    role: operator._id,
-                    activated: true
-                },
-                {
-                    firstName: 'Agnes',
-                    lastName: 'Operator',
-                    email: 'Agnesoperator@healtheducat.rw',
-                    password: '123456',
-                    mobileNumber: '08111111118',
-                    role: operator._id,
-                    activated: true
-                }
-                
+                }   
             ]);
 
             this.debuggerService.info('Insert User Succeed', {
@@ -126,7 +79,7 @@ export class UserSeed {
                 function: 'create'
             });
         } catch (e) {
-            console.log(e)
+            console.log("error", e)
             this.debuggerService.error(e.message, {
                 class: 'UserSeed',
                 function: 'create'
@@ -148,6 +101,7 @@ export class UserSeed {
                 function: 'remove'
             });
         } catch (e) {
+            console.log("error",e)
             this.debuggerService.error(e.message, {
                 class: 'UserSeed',
                 function: 'remove'
